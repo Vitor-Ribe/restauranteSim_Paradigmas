@@ -1,9 +1,8 @@
-"""
-    Este arquivo é uma adaptação do código referência em Python para a linguagem Kotlin. 
-    Bibliotecas semelhantes foram utilizadas para manter a lógica da referência.
+// Este arquivo é uma adaptação do código referência em Python para a linguagem Kotlin.
+// Bibliotecas semelhantes foram utilizadas para manter a lógica da referência.
+//
+// A função Syncronized da biblioteca Thread foi utilizada para atuar como monitor, permitindo que apenas uma thread acesse a área crítica.
 
-    A função Syncronized da biblioteca Thread foi utilizada para atuar como monitor, permitindo que apenas uma thread acesse a área crítica.
-"""
 package estrategia
 import kotlin.concurrent.thread
 import kotlin.random.Random

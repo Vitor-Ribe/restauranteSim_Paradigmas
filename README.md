@@ -1,14 +1,18 @@
 # Seminário 2 - Paradigmas de Programação  :computer:
 # Problema :dart:
 
-O restaurante Sim, que precisa processar muitos pedidos de forma rápida. A ideia é escalar o sistema usando vários cozinheiros simultâneos (threads ou tarefas concorrentes) para preparar os pedidos.
+O restaurante **Sim**, que precisa processar muitos pedidos de forma rápida. A ideia é escalar o sistema com **vários cozinheiros (threads)** para preparar os pedidos.
 Eles tentaram algo simples: cada cozinheiro retira pedidos de uma fila global e marca como pronto. Mas… algo deu errado.
-Problemas observados:
+
+**problemas de concorrência**:
 - Alguns pedidos desaparecem
 - Cozinheiros preparam o mesmo pedido duas vezes
-- A lista de pedidos prontos vem incompleta ou fora de ordem 
+- A lista de pedidos prontos vem incompleta ou fora de ordem
 
-Cada grupo deve:
+---
+
+## Objetivos do Grupo
+
 1. Simular esse cenário em sua linguagem de programação 
 2. Reproduzir o problema de concorrência.
 3. Discutir por que o erro ocorreu (race condition).
@@ -96,6 +100,14 @@ Total prontos: 383
 
 > **Pedidos atendidos:** 383  :x: _// deveria ser 100. Ou seja, mais de um cozinheiro atendeu ao mesmo pedido_
 
+> **Resumo das 10 Execuções:**
+- Total: 10
+- Aprovadas: 0
+- Reprovadas: 10
+- Problemas: pedidos duplicados, perda de pedidos, ordem quebrada.
+
+---
+
 ## Com estrategia :white_check_mark:
 ```bash
 pedido=0 recebido...
@@ -116,4 +128,51 @@ Total prontos: 100
 > **Pedidos para atender:** 0    :white_check_mark:  _// Nenhum pedido deixou de ser atendido_
 
 > **Pedidos atendidos:** 100     :white_check_mark:  _// Cada pedido foi atendido por somente um cozinheiro_
+
+> **Resumo das 10 Execuções:**
+- Total: 10
+- Aprovadas: 10
+- Reprovadas: 0
+- Resultado consistente e íntegro.
+
+---
+
+## Justificativa da Estratégia
+
+**Por que `synchronized` (monitor):**
+
+| Critério | `synchronized` | Semáforo |
+|---------|----------------|----------|
+| Simplicidade | ✅ Alta | ❌ Média |
+| Robustez contra erros | ✅ Automático | ❌ Propenso a esquecer `release()` |
+| Clareza de código | ✅ Muito clara | ❌ Mais verboso |
+| Ideal para exclusão mútua simples | ✅ Sim | ✅ Também, mas menos direto |
+
+---
+
+## Scripts de Execução
+
+Para rodar os testes automatizados:
+
+```powershell
+# Sem controle de concorrência
+.
+run_semEstrategia.ps1
+
+# Com controle de concorrência
+.
+run_comEstrategia.ps1
+```
+
+---
+
+## Conclusão :white_check_mark:
+
+A utilização de `synchronized` foi suficiente para:
+- Corrigir todos os erros de concorrência;
+- Garantir integridade da fila e dos pedidos;
+- Melhorar o desempenho médio da aplicação concorrente.
+
+Essa abordagem é apropriada para cenários de **exclusão mútua simples** em aplicações multi-thread.
+
 
