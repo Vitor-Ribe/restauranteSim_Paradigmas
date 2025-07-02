@@ -1,3 +1,7 @@
+"""
+    Este arquivo é uma adaptação do código referência em Python para a linguagem Kotlin. 
+    Bibliotecas semelhantes foram utilizadas para manter a lógica da referência.
+"""
 package semEstrategia
 import kotlin.concurrent.thread
 import kotlin.random.Random
