@@ -1,3 +1,7 @@
+"""
+    Este arquivo é uma adaptação do código referência em Python para a linguagem Kotlin. 
+    Bibliotecas semelhantes foram utilizadas para manter a lógica da referência.
+"""
 package estrategia
 import kotlin.concurrent.thread
 import kotlin.random.Random
@@ -15,7 +19,8 @@ fun cozinheiro(num: Int) {
     while (filaDePedidos.isNotEmpty()) {
         val pedido: Int
 
-        synchronized(lock) {
+        // área crítica (remoção de pedidos)
+        synchronized(lock) {    // atuação do monitor
             if (filaDePedidos.isEmpty()) return  // sair se não há mais pedidos
             pedido = filaDePedidos.removeAt(0)
         }
@@ -24,7 +29,8 @@ fun cozinheiro(num: Int) {
         Thread.sleep(Random.nextLong(100, 500))
         println("Cozinheiro $num terminou pedido=$pedido")
 
-        synchronized(lock) {
+        // área crítica (adição de pedido)
+        synchronized(lock) {     // atuação do monitor
             pedidosProntos.add(pedido)
         }
     }
