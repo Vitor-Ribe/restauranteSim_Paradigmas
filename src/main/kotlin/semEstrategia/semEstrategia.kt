@@ -11,14 +11,12 @@ val numPedidos = 100
 fun cozinheiro(num: Int) {
     println("Cozinheiro $num pronto para receber pedidos!")
     while (filaDePedidos.isNotEmpty()) {
-        if (filaDePedidos.isNotEmpty()) {
-            val pedido = filaDePedidos[0]
-            println("Cozinheiro $num preparando pedido=$pedido")
-            Thread.sleep((Random.nextDouble(100.0, 500.0)).toLong())
-            println("Cozinheiro $num terminou pedido=$pedido")
-            pedidosProntos.add(pedido)
-            filaDePedidos.remove(pedido)
-        }
+        val pedido = filaDePedidos[0]
+        println("Cozinheiro $num preparando pedido=$pedido")
+        Thread.sleep((Random.nextDouble(100.0, 500.0)).toLong())
+        println("Cozinheiro $num terminou pedido=$pedido")
+        pedidosProntos.add(pedido)
+        filaDePedidos.remove(pedido)
     }
 }
 

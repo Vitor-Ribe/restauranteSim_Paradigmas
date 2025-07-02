@@ -12,7 +12,7 @@ val numPedidos = 100
 fun cozinheiro(num: Int) {
     println("Cozinheiro $num pronto para receber pedidos!")
 
-    while (true) {
+    while (filaDePedidos.isNotEmpty()) {
         val pedido: Int
 
         synchronized(lock) {
